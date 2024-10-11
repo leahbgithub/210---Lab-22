@@ -22,11 +22,17 @@ private:
 
 public:
     // constructor
-    DoublyLinkedList() {
-        head = nullptr;
-        tail = nullptr;
-    }
+    DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
+    //destructor
+    ~DoublyLinkedList() {
+        while (head) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+    
     void push_back(int value) {
         Node* newNode = new Node(value);
         if (!tail) // if there's no tail, the list is empty
@@ -48,35 +54,8 @@ public:
             head = newNode;
         }
     }
-
-    void insert_after(int value, int position) {
-        if (position < 0) {
-            cout << "Position must be >= 0." << endl;
-            return;
-        }
-        Node* newNode = new Node(value);
-        if (!head) {
-            head = tail = newNode;
-            return;
-        }
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
-        if (!temp) {
-            cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
-        }
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
-        else
-            tail = newNode; // Inserting at the end
-        temp->next = newNode;
-    }
-
-    void delete_node(int value) {
+    // node is deleted by value ( i changed it from delete_node to delete_val)
+    void delete_val(int value) {
         if (!head) return; // Empty list
         Node* temp = head;
         while (temp && temp->data != value)
@@ -95,6 +74,14 @@ public:
         delete temp;
     }
 
+    void delete_pos(int position) {
+        if (position < 0 || !head) return;
+        Node* temp = position;
+        for (int i = 0; i < position && temp; ++i)
+            temp = temp->next;
+        if (!position) return;
+    }
+    
     void print() {
         Node* current = head;
         if (!current) return;
@@ -114,15 +101,6 @@ public:
         }
         cout << endl;
     }
-
-    ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
-        }
-    }
-};
 
 // Driver program
 int main() {
