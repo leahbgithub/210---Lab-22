@@ -19,11 +19,11 @@ private:
     };
     Node* head;
     Node* tail;
-
+    
 public:
     // constructor
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
-
+    
     //destructor
     ~DoublyLinkedList() {
         while (head) {
@@ -43,7 +43,7 @@ public:
             tail = newNode;
         }
     }
-
+    
     void push_front(int value) {
         Node* newNode = new Node(value);
         if (!head) // if there's no head, the list is empty
@@ -73,7 +73,7 @@ public:
         }
         delete temp;
     }
-
+    
     // node is deleted by position
     void delete_pos(int position) {
         if (position < 0 || !head) return; // empty list
@@ -127,7 +127,7 @@ public:
         }
         cout << endl;
     }
-
+    
     void print_reverse() {
         Node* current = tail;
         if (!current) return;
@@ -137,6 +137,7 @@ public:
         }
         cout << endl;
     }
+};
 
 // Driver program
 int main() {
@@ -145,17 +146,27 @@ int main() {
     for (int i = 0; i < size; ++i)
         list.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
 
-    cout << "List forward: ";
+    cout << "Initial List Forward: ";
     list.print();
-
-    cout << "List backward: ";
+    cout << "Initial List Backward: ";
     list.print_reverse();
-
-    cout << "Deleting list, then trying to print.\n";
-    list.~DoublyLinkedList();
-
-    cout << "List forward: ";
+    
+    // this will delete by position
+    cout << "Deleting node at position 2." << endl;
+    list.delete_pos(2);
     list.print();
+    
+    // This tests the pop_front
+    cout << "Popping the front." << endl;
+    list.pop_front();
+    list.print();
+    
+    // This will test the pop_back
+    cout << "Popping back." << endl;
+    list.pop_back();
+    list.print();
+    
+    cout <<
 
     return 0;
 }
