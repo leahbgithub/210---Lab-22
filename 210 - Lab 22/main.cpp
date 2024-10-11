@@ -94,11 +94,28 @@ public:
         delete temp;
     }
     
+    // head node will be deleted
     void pop_front() {
         if (!head) return; // empty list
         Node* temp = head;
         head = head->next;
-        if (hea
+        if (head)
+            head->prev = nullptr;
+        else
+            tail = nullptr;
+        delete temp;
+    }
+    
+    // tail node will also be deleted
+    void pop_back() {
+        if (!tail) return;
+        Node* temp = tail;
+        tail = tail->prev;
+        if (tail)
+            tail->next = nullptr;
+        else
+            head = nullptr;
+        delete temp;
     }
     
     void print() {
