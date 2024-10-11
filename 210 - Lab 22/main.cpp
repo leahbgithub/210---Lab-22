@@ -102,19 +102,19 @@ public:
         if (head)
             head->prev = nullptr;
         else
-            tail = nullptr;
+            tail = nullptr; // list will become empty
         delete temp;
     }
     
     // tail node will also be deleted
     void pop_back() {
-        if (!tail) return;
+        if (!tail) return; // empty list
         Node* temp = tail;
         tail = tail->prev;
         if (tail)
             tail->next = nullptr;
         else
-            head = nullptr;
+            head = nullptr; // list will then become empty
         delete temp;
     }
     
@@ -166,7 +166,10 @@ int main() {
     list.pop_back();
     list.print();
     
-    cout <<
+    // This will test by deleting the value
+    cout << "Deleting node with value 50." << endl;
+    list.delete_val(50);
+    list.print();
 
     return 0;
 }
