@@ -74,12 +74,31 @@ public:
         delete temp;
     }
 
+    // node is deleted by position
     void delete_pos(int position) {
-        if (position < 0 || !head) return;
-        Node* temp = position;
+        if (position < 0 || !head) return; // empty list
+        Node* temp = head;
         for (int i = 0; i < position && temp; ++i)
             temp = temp->next;
-        if (!position) return;
+        if (!temp) return; // out of range for position
+        
+        if (temp->prev)
+            temp->prev->next = temp->next;
+        else
+            head = temp->next; // delete head
+        if (temp ->next)
+            temp->next->prev = temp->prev;
+        else
+            tail = temp->prev; // delete tail
+        
+        delete temp;
+    }
+    
+    void pop_front() {
+        if (!head) return; // empty list
+        Node* temp = head;
+        head = head->next;
+        if (hea
     }
     
     void print() {
